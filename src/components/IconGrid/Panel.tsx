@@ -19,6 +19,7 @@ import {
   CaretDoubleRight,
 } from "@phosphor-icons/react";
 import ReactGA from "react-ga4";
+import { optimize } from 'svgo';
 
 import Tabs, { Tab } from "@/components/Tabs";
 import { useMediaQuery, useTransientState, useSessionStorage } from "@/hooks";
@@ -210,7 +211,7 @@ const Panel = () => {
     if (!entry) return;
     if (!ref.current) return;
 
-    navigator.clipboard?.writeText(cloneWithSize(ref.current, size).outerHTML);
+    navigator.clipboard?.writeText(optimize(cloneWithSize(ref.current, size).outerHTML).data);
     setCopied(CopyType.SVG);
   };
 
@@ -242,7 +243,7 @@ const Panel = () => {
       }.svg`
     );
     const content = await data.text();
-    navigator.clipboard?.writeText(content);
+    navigator.clipboard?.writeText(optimize(content).data);
     setCopied(CopyType.SVG_RAW);
   };
 
