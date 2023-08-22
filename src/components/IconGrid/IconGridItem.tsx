@@ -6,7 +6,6 @@ import {
   HTMLAttributes,
 } from "react";
 import { useRecoilState } from "recoil";
-import { motion } from "framer-motion";
 
 import { IconEntry } from "@/lib";
 import { selectionEntryAtom } from "@/state";
@@ -18,17 +17,8 @@ interface IconGridItemProps extends HTMLAttributes<HTMLDivElement> {
   originOffset: MutableRefObject<{ top: number; left: number }>;
 }
 
-const transition = { duration: 0.2 };
 const originIndex = 0;
 const delayPerPixel = 0.0004;
-
-const itemVariants = {
-  hidden: { opacity: 0 },
-  visible: (delayRef: MutableRefObject<number>) => ({
-    opacity: 1,
-    transition: { delay: delayRef.current },
-  }),
-};
 
 const IconGridItem = (props: IconGridItemProps) => {
   const { index, originOffset, entry, style } = props;
